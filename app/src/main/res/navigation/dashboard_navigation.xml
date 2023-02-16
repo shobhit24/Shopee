@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_dashboard_home"
-        android:name="com.example.shopee.features.productList.view.HomeFragment"
+        android:name="com.example.shopee.view.fragments.HomeFragment"
         tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/navigation_dashboard_profile"
-        android:name="com.example.shopee.features.productGrid.view.ProfileFragment"
+        android:name="com.example.shopee.view.fragments.ProfileFragment"
         tools:layout="@layout/fragment_profile" />
 
 </navigation>

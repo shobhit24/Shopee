@@ -1,10 +1,10 @@
-package com.example.shopee.data.remote.viewModel
+package com.example.shopee.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.shopee.data.remote.model.ResponseDTO
-import com.example.shopee.data.remote.repository.ProductRepository
+import com.example.shopee.remote.model.ResponseDTO
+import com.example.shopee.repository.ProductRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

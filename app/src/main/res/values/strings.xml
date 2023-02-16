@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Shopee</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_home_fragment">Hello home fragment</string>
-    <string name="hello_profile_fragment">Hello profile fragment</string>
-    <string name="hello_settings_fragment">Hello settings fragment</string>
+    <string name="explore">Explore</string>
+    <string name="filter">Filter</string>
+    <string name="search">Search</string>
+    <string name="same_day_shipping">Same Day Shipping</string>
+    <string name="mrp">MRP: ₹100.0</string>
+    <string name="price">₹100.0</string>
+    <string name="item">Item 1</string>
+    <string name="product_image">Product Image</string>
 </resources>

@@ -1,10 +1,10 @@
 package com.example.shopee.view
 
 import android.app.Application
-import com.example.shopee.data.local.model.AppDatabase
-import com.example.shopee.data.remote.api.APiInterface
-import com.example.shopee.data.remote.api.ApiUtilities
-import com.example.shopee.data.remote.repository.ProductRepository
+import com.example.shopee.database.AppDatabase
+import com.example.shopee.remote.api.APiInterface
+import com.example.shopee.remote.api.ApiUtilities
+import com.example.shopee.repository.ProductRepository
 
 class ProductApplication : Application() {
 

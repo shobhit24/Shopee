@@ -1,4 +1,4 @@
-package com.example.shopee.data.remote.model
+package com.example.shopee.remote.model
 
 data class ResponseDTO(
     val `data`: Data,

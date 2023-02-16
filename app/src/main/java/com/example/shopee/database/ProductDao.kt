@@ -1,10 +1,10 @@
-package com.example.shopee.data.local.model
+package com.example.shopee.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.shopee.data.model.Product
+import com.example.shopee.remote.model.Product
 
 @Dao
 interface ProductDao {
