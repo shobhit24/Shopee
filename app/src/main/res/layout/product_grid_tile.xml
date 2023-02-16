@@ -7,7 +7,7 @@
     android:layout_marginBottom="29dp">
 
     <ImageView
-        android:id="@+id/itemImage"
+        android:id="@+id/productImage"
         android:layout_width="110dp"
         android:layout_height="110dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemName"
+        android:id="@+id/productName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -24,17 +24,16 @@
         android:textFontWeight="600"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemImage" />
+        app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
     <TextView
-        android:id="@+id/itemPrice"
+        android:id="@+id/productPrice"
         style="@style/GridItemPriceStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="₹100.0"
-        android:textFontWeight="700"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemName" />
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

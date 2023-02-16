@@ -7,23 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.shopee.api.APiInterface
-import com.example.shopee.api.ApiUtilities
+import com.example.shopee.data.remote.api.APiInterface
+import com.example.shopee.data.remote.api.ApiUtilities
 import com.example.shopee.databinding.FragmentProfileBinding
-import com.example.shopee.data.remote.model.Item
-import com.example.shopee.data.remote.repository.ItemRepository
-import com.example.shopee.data.remote.viewModel.ItemViewModel
-import com.example.shopee.data.remote.viewModel.ItemViewModelFactory
-import com.example.shopee.databinding.FragmentHomeBinding
-import com.example.shopee.view.ItemAdapter
+import com.example.shopee.data.remote.repository.ProductRepository
+import com.example.shopee.data.remote.viewModel.ProductViewModel
+import com.example.shopee.data.remote.viewModel.ProductViewModelFactory
+import com.example.shopee.view.ProductAdapter
+import com.example.shopee.view.ProductApplication
 import com.example.shopee.view.ViewType
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var adapter: ItemAdapter
-    private lateinit var itemViewModel: ItemViewModel
+    private lateinit var adapter: ProductAdapter
+    private lateinit var productViewModel: ProductViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,16 +35,18 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val apiInterface = ApiUtilities.getInstace().create(APiInterface::class.java)
-        val itemRepository = ItemRepository(apiInterface)
+        val productRepository =
+            (requireActivity().application as ProductApplication).productRepository
+
         binding.gridRecyclerView.layoutManager = GridLayoutManager(activity, 3)
-        itemViewModel = ViewModelProvider(
+
+        productViewModel = ViewModelProvider(
             this,
-            ItemViewModelFactory(itemRepository)
-        ).get(ItemViewModel::class.java)
-        itemViewModel.items.observe(requireActivity()) {
-            itemViewModel.items.value?.data?.items?.let {
-                adapter = ItemAdapter(it, ViewType.Grid)
+            ProductViewModelFactory(productRepository)
+        ).get(ProductViewModel::class.java)
+        productViewModel.items.observe(requireActivity()) {
+            productViewModel.items.value?.data?.items?.let {
+                adapter = ProductAdapter(it, ViewType.Grid)
                 binding.gridRecyclerView.adapter = adapter
 
             }

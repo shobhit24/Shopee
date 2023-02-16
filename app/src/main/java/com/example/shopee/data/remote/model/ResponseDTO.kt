@@ -1,6 +1,6 @@
 package com.example.shopee.data.remote.model
 
-data class ProductData(
+data class ResponseDTO(
     val `data`: Data,
     val error: Any,
     val status: String,

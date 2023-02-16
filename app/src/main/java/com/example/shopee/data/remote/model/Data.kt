@@ -1,5 +1,7 @@
 package com.example.shopee.data.remote.model
 
+import com.example.shopee.data.model.Product
+
 data class Data(
-    val items: List<Item>
+    val items: List<Product>
 )
