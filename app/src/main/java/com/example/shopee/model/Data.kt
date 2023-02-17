@@ -1,4 +1,4 @@
-package com.example.shopee.remote.model
+package com.example.shopee.model
 
 data class Data(
     val items: List<Product>

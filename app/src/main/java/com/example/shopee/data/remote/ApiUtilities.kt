@@ -1,4 +1,4 @@
-package com.example.shopee.remote.api
+package com.example.shopee.data.remote
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

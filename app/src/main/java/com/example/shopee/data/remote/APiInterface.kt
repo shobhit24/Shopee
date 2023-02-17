@@ -1,6 +1,6 @@
-package com.example.shopee.remote.api
+package com.example.shopee.data.remote
 
-import com.example.shopee.remote.model.ResponseDTO
+import com.example.shopee.model.ResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
 

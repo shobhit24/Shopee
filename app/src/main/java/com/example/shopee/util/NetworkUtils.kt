@@ -1,4 +1,4 @@
-package com.example.shopee.view.util
+package com.example.shopee.util
 
 import android.content.Context
 import android.net.ConnectivityManager

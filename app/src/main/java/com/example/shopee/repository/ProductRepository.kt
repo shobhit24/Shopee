@@ -3,21 +3,23 @@ package com.example.shopee.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.shopee.database.AppDatabase
-import com.example.shopee.remote.api.APiInterface
-import com.example.shopee.remote.model.Data
-import com.example.shopee.remote.model.ResponseDTO
-import com.example.shopee.view.util.NetworkUtils
+import com.example.shopee.data.database.AppDatabase
+import com.example.shopee.data.remote.APiInterface
+import com.example.shopee.model.Data
+import com.example.shopee.model.ResponseDTO
+import com.example.shopee.util.NetworkUtils
+import javax.inject.Inject
 
-class ProductRepository(
+class ProductRepository
+@Inject constructor(
     private val aPiInterface: APiInterface,
     private val appDatabase: AppDatabase,
     private val applicationContext: Context
 ) {
-    private val itemLiveData = MutableLiveData<ResponseDTO>()
+    private val productLiveData = MutableLiveData<ResponseDTO>()
 
-    val items: LiveData<ResponseDTO>
-        get() = itemLiveData
+    val products: LiveData<ResponseDTO>
+        get() = productLiveData
 
     suspend fun getProducts() {
 
@@ -29,7 +31,7 @@ class ProductRepository(
 
             if (result.body() != null) {
                 appDatabase.productDao().insertAll(result.body()!!.data.items)
-                itemLiveData.postValue(result.body())
+                productLiveData.postValue(result.body())
             }
         } else {
 
@@ -37,9 +39,8 @@ class ProductRepository(
             val products = appDatabase.productDao().getAll()
 
             val productList = ResponseDTO(Data(products), "", "")
-            itemLiveData.postValue(productList)
+            productLiveData.postValue(productList)
         }
-
 
     }
 

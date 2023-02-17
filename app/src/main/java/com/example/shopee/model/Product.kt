@@ -1,4 +1,4 @@
-package com.example.shopee.remote.model
+package com.example.shopee.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:autofillHints="name"
         android:background="@drawable/search_bar"
-        android:enabled="false"
         android:hint="@string/search"
         android:inputType="text"
         android:padding="16dp"

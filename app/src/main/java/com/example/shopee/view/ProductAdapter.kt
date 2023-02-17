@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-import com.example.shopee.remote.model.Product
+import com.example.shopee.model.Product
 import com.example.shopee.databinding.ProductGridTileBinding
 import com.example.shopee.databinding.ProductListTileBinding
 
