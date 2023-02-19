@@ -1,6 +1,7 @@
 package com.example.shopee.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopee.model.ResponseDTO
@@ -11,14 +12,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductViewModel @Inject constructor(private val productRepository: ProductRepository) :
-    ViewModel() {
+class ProductViewModel @Inject constructor(
+    private val productRepository: ProductRepository,
+) : ViewModel() {
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            productRepository.getProducts()
-        }
+        getProduct()
     }
 
-    val products: LiveData<ResponseDTO>
-        get() = productRepository.products
+    private var productLiveData = MutableLiveData<ResponseDTO?>()
+
+    val products: LiveData<ResponseDTO?>
+        get() = productLiveData
+
+    fun getProduct() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = productRepository.getProducts()
+            if (result != null) {
+                productLiveData.postValue(result)
+            }
+        }
+    }
 }

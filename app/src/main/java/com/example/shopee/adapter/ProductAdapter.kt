@@ -1,5 +1,4 @@
-package com.example.shopee.view
-
+package com.example.shopee.adapter
 
 import android.view.LayoutInflater
 import android.view.View

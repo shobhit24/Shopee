@@ -9,8 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shopee.databinding.FragmentProfileBinding
 import com.example.shopee.viewModel.ProductViewModel
-import com.example.shopee.view.ProductAdapter
-import com.example.shopee.view.ViewType
+import com.example.shopee.adapter.ProductAdapter
+import com.example.shopee.adapter.ViewType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

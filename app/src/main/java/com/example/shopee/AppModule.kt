@@ -22,11 +22,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun getDBInstance(@ApplicationContext ctx: Context): AppDatabase =
-        AppDatabase.getDatabase(ctx)
+    fun getDBInstance(@ApplicationContext ctx: Context): AppDatabase = AppDatabase.getDatabase(ctx)
 
     @Provides
     @Singleton
-    fun getApplicationCtx(@ApplicationContext ctx: Context): Context =
-        ctx
+    fun getApplicationCtx(@ApplicationContext ctx: Context): Context = ctx
 }

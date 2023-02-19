@@ -1,8 +1,6 @@
 package com.example.shopee.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.shopee.data.database.AppDatabase
 import com.example.shopee.data.remote.APiInterface
 import com.example.shopee.model.Data
@@ -16,12 +14,7 @@ class ProductRepository
     private val appDatabase: AppDatabase,
     private val applicationContext: Context
 ) {
-    private val productLiveData = MutableLiveData<ResponseDTO>()
-
-    val products: LiveData<ResponseDTO>
-        get() = productLiveData
-
-    suspend fun getProducts() {
+    suspend fun getProducts(): ResponseDTO? {
 
         // Checking for Active Internet Connection
         if (NetworkUtils.isOnline(applicationContext)) {
@@ -30,16 +23,16 @@ class ProductRepository
             val result = aPiInterface.getProducts()
 
             if (result.body() != null) {
+                // Save productList to local DB
                 appDatabase.productDao().insertAll(result.body()!!.data.items)
-                productLiveData.postValue(result.body())
+                return result.body() as ResponseDTO
             }
+            return null
         } else {
 
             // Else -> Fetch from DB
             val products = appDatabase.productDao().getAll()
-
-            val productList = ResponseDTO(Data(products), "", "")
-            productLiveData.postValue(productList)
+            return ResponseDTO(Data(products), "", "")
         }
 
     }
