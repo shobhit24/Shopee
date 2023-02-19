@@ -1,5 +1,6 @@
 package com.example.shopee.viewModel
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.shopee.getOrAwaitValue
 import com.example.shopee.model.Data
 import com.example.shopee.model.ResponseDTO
@@ -10,10 +11,7 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -22,6 +20,9 @@ class ProductViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     lateinit var productRepository: ProductRepository

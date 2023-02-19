@@ -27,7 +27,7 @@ class ProductDaoTest {
     }
 
     @Test
-    fun insertProducts() = runBlocking {
+    fun test_InsertProducts() = runBlocking {
         val products = listOf(
             Product(name = "productName", price = "100.0", id = 1, image = "", extra = ""),
         )
