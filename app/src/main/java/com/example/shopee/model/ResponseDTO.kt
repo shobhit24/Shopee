@@ -5,3 +5,7 @@ data class ResponseDTO(
     val error: Any,
     val status: String,
 )
+
+data class Data(
+    val items: List<Product>
+)

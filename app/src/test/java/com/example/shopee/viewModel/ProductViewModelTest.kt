@@ -42,7 +42,7 @@ class ProductViewModelTest {
             .thenReturn(ResponseDTO(data = Data(items = emptyList()), error = "", status = ""))
 
         val sut = ProductViewModel(productRepository)
-        sut.getProduct()
+        sut.callOnInit()
         testDispatcher.scheduler.advanceUntilIdle()
         val result = sut.products.getOrAwaitValue()
 

@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.ProfileFragment">
+    tools:context=".view.fragments.ListViewFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gridRecyclerView"
+        android:id="@+id/linearRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
         android:clipToPadding="false"
-        android:paddingHorizontal="32dp"
-        android:paddingTop="39dp"
-        android:paddingBottom="39dp"
+        android:paddingVertical="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

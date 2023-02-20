@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.shopee.databinding.FragmentProfileBinding
 import com.example.shopee.viewModel.ProductViewModel
 import com.example.shopee.adapter.ProductAdapter
 import com.example.shopee.adapter.ViewType
+import com.example.shopee.databinding.FragmentGridViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class GridViewFragment : Fragment() {
 
-    private lateinit var binding: FragmentProfileBinding
+    private lateinit var binding: FragmentGridViewBinding
     private lateinit var adapter: ProductAdapter
     private val productViewModel: ProductViewModel by activityViewModels()
 
@@ -26,7 +26,7 @@ class ProfileFragment : Fragment() {
     ): View {
 
         // Inflate the layout for this fragment
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding = FragmentGridViewBinding.inflate(inflater, container, false)
         return (binding.root)
     }
 

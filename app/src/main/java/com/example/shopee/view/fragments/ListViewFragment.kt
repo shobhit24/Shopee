@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shopee.R
 import com.example.shopee.viewModel.ProductViewModel
-import com.example.shopee.databinding.FragmentHomeBinding
 import com.example.shopee.adapter.ProductAdapter
 import com.example.shopee.adapter.ViewType
+import com.example.shopee.databinding.FragmentListViewBinding
+import com.example.shopee.util.OnSwipeTouchListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class ListViewFragment : Fragment() {
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentListViewBinding
     private lateinit var adapter: ProductAdapter
     private val productViewModel: ProductViewModel by activityViewModels()
 
@@ -25,7 +27,7 @@ class HomeFragment : Fragment() {
     ): View {
 
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentListViewBinding.inflate(inflater, container, false)
         return (binding.root)
     }
 
