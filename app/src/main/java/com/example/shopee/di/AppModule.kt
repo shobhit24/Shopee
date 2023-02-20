@@ -1,4 +1,4 @@
-package com.example.shopee
+package com.example.shopee.di
 
 import android.content.Context
 import com.example.shopee.data.database.AppDatabase

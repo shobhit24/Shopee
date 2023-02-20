@@ -1,4 +1,4 @@
-package com.example.shopee.view
+package com.example.shopee
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
