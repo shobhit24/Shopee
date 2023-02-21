@@ -11,7 +11,7 @@ import javax.inject.Inject
 class ProductRepository
 @Inject constructor(
     private val aPiInterface: APiInterface,
-    private val appDatabase: AppDatabase,
+    val appDatabase: AppDatabase,
     private val applicationContext: Context
 ) {
     suspend fun getProducts(): ResponseDTO? {
@@ -20,22 +20,25 @@ class ProductRepository
         if (NetworkUtils.isOnline(applicationContext)) {
 
             // If Active Internet -> Make an API call
-            val result = aPiInterface.getProducts()
+            return try {
+                val result = aPiInterface.getProducts()
 
-            if (result.body() != null) {
                 // Save productList to local DB
                 appDatabase.productDao().insertAll(result.body()!!.data.items)
-                return result.body() as ResponseDTO
+                result.body() as ResponseDTO
+
+            } catch (e: Exception) {
+                getProductListFromDB()
             }
-            return null
-        } else {
-
-            // Else -> Fetch from DB
-            val products = appDatabase.productDao().getAll()
-            return ResponseDTO(Data(products), "", "")
         }
-
+        return getProductListFromDB()
     }
 
+    private fun getProductListFromDB(): ResponseDTO {
+
+        // Hit getAll query on DB
+        val products = appDatabase.productDao().getAll()
+        return ResponseDTO(Data(products), "", "")
+    }
 
 }

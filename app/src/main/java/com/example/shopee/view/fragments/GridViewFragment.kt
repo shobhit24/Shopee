@@ -48,7 +48,8 @@ class GridViewFragment : Fragment() {
         binding.gridRecyclerView.setOnTouchListener(object : OnSwipeTouchListener(context) {
             override fun onSwipeRight() {
                 super.onSwipeRight()
-                productViewModel.onSwipeRight("GridFragment")
+                // passing the current fragment to VM
+                productViewModel.onSwipeRight()
             }
         })
     }

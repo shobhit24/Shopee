@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.shopee.model.Data
 import com.example.shopee.model.ResponseDTO
 import com.example.shopee.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,9 +21,12 @@ class ProductViewModel @Inject constructor(
     }
 
     private var productLiveData = MutableLiveData<ResponseDTO?>()
-    private val _swipeLeftObserver = MutableLiveData<String>()
+
+    // LiveData for swipeLeft and swipeRight state to hold & update the value in when swipe detected
+    private val _swipeLeftObserver = MutableLiveData<Unit>()
+    private val _swipeRightObserver = MutableLiveData<Unit>()
+
     val swipeLeftObserver = _swipeLeftObserver
-    private val _swipeRightObserver = MutableLiveData<String>()
     val swipeRightObserver = _swipeRightObserver
 
     val products: LiveData<ResponseDTO?>
@@ -37,11 +41,26 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun onSwipeLeft(currentView: String) {
-        _swipeLeftObserver.postValue(currentView)
+    // updating the swipe direction LiveData with current fragment
+    fun onSwipeLeft() {
+        _swipeLeftObserver.postValue(Unit)
     }
 
-    fun onSwipeRight(currentView: String) {
-        _swipeRightObserver.postValue(currentView)
+    fun onSwipeRight() {
+        _swipeRightObserver.postValue(Unit)
+    }
+
+    fun searchProducts(searchText: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val searchResult =
+                productRepository.appDatabase.productDao().searchProduct("%$searchText%")
+            productLiveData.postValue(
+                ResponseDTO(
+                    Data(items = searchResult),
+                    error = "",
+                    status = ""
+                )
+            )
+        }
     }
 }

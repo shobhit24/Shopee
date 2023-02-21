@@ -47,7 +47,8 @@ class ListViewFragment : Fragment() {
         binding.linearRecyclerView.setOnTouchListener(object : OnSwipeTouchListener(context) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
-                productViewModel.onSwipeLeft("ListFragment")
+                // passing the current fragment to VM
+                productViewModel.onSwipeLeft()
             }
         })
     }
