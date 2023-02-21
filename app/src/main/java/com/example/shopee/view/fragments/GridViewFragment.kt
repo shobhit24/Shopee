@@ -1,5 +1,6 @@
 package com.example.shopee.view.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import com.example.shopee.viewModel.ProductViewModel
 import com.example.shopee.adapter.ProductAdapter
 import com.example.shopee.adapter.ViewType
 import com.example.shopee.databinding.FragmentGridViewBinding
+import com.example.shopee.util.OnSwipeTouchListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,8 +23,7 @@ class GridViewFragment : Fragment() {
     private val productViewModel: ProductViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         // Inflate the layout for this fragment
@@ -30,6 +31,7 @@ class GridViewFragment : Fragment() {
         return (binding.root)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,5 +44,12 @@ class GridViewFragment : Fragment() {
 
             }
         }
+
+        binding.gridRecyclerView.setOnTouchListener(object : OnSwipeTouchListener(context) {
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                productViewModel.onSwipeRight("GridFragment")
+            }
+        })
     }
 }

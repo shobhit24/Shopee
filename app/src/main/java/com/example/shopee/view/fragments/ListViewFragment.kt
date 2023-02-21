@@ -1,5 +1,6 @@
 package com.example.shopee.view.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.shopee.R
 import com.example.shopee.viewModel.ProductViewModel
 import com.example.shopee.adapter.ProductAdapter
 import com.example.shopee.adapter.ViewType
@@ -31,6 +31,7 @@ class ListViewFragment : Fragment() {
         return (binding.root)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -40,8 +41,14 @@ class ListViewFragment : Fragment() {
             productViewModel.products.value?.data?.items?.let {
                 adapter = ProductAdapter(it, ViewType.List)
                 binding.linearRecyclerView.adapter = adapter
-
             }
         }
+
+        binding.linearRecyclerView.setOnTouchListener(object : OnSwipeTouchListener(context) {
+            override fun onSwipeLeft() {
+                super.onSwipeLeft()
+                productViewModel.onSwipeLeft("ListFragment")
+            }
+        })
     }
 }
