@@ -13,4 +13,5 @@
     <color name="hint_text">#BDBDBD</color>
     <color name="shipping_text">#A3A3A3</color>
     <color name="purple">#8D60CB</color>
+    <color name="placeholder">#F6F6F6</color>
 </resources>

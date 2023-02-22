@@ -10,6 +10,6 @@ data class Product(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo val name: String,
     @ColumnInfo val price: String,
-    @ColumnInfo val image: String,
+    @ColumnInfo val image: String?,
     @ColumnInfo val extra: String?,
 )
