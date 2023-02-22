@@ -6,7 +6,7 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import com.example.shopee.R
 import com.example.shopee.databinding.ActivityMainBinding
 import com.example.shopee.viewModel.ProductViewModel
@@ -15,8 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val itemsArray = arrayOf(
-        "navigation_dashboard_list",
-        "navigation_dashboard_grid"
+        "navigation_dashboard_list", "navigation_dashboard_grid"
     )
 
     private lateinit var binding: ActivityMainBinding
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val productViewModel: ProductViewModel by viewModels()
     private lateinit var currentDestination: String
 
-    val navController by lazy { navHostFragment.navController }
+    private val navController by lazy { navHostFragment.navController }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +35,7 @@ class MainActivity : AppCompatActivity() {
         navController.setGraph(R.navigation.dashboard_navigation)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        // Search products
-//        binding.header.searchBar.clearFocus()
+        // Search products query listener
         binding.header.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -76,14 +74,20 @@ class MainActivity : AppCompatActivity() {
                 navigateTo(finalDestination)
             }
         }
-
     }
 
     private fun navigateTo(finalDestination: String) {
         // navigating to the final destination fragment
         when (finalDestination) {
-            "navigation_dashboard_list" -> navController.navigate(R.id.navigation_dashboard_list)
-            "navigation_dashboard_grid" -> navController.navigate(R.id.navigation_dashboard_grid)
+            "navigation_dashboard_list" -> {
+                val item = binding.bottomNavigation.menu.findItem(R.id.navigation_dashboard_list)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+            "navigation_dashboard_grid" -> {
+                val item = binding.bottomNavigation.menu.findItem(R.id.navigation_dashboard_grid)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+
         }
 
     }

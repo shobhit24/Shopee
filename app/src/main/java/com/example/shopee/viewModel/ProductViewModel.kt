@@ -53,7 +53,7 @@ class ProductViewModel @Inject constructor(
     fun searchProducts(searchText: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             val searchResult =
-                productRepository.appDatabase.productDao().searchProduct("%$searchText%")
+                productRepository.appDatabase.productDao().searchProduct(searchText)
             productLiveData.postValue(
                 ResponseDTO(
                     Data(items = searchResult),

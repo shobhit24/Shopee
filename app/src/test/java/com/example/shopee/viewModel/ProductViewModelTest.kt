@@ -16,9 +16,8 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
+@ExperimentalCoroutinesApi
 class ProductViewModelTest {
-
-    @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
 
     @get:Rule
@@ -28,14 +27,12 @@ class ProductViewModelTest {
     lateinit var productRepository: ProductRepository
 
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(testDispatcher)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun test_GetProducts() = runTest {
         Mockito.`when`(productRepository.getProducts())
@@ -50,7 +47,6 @@ class ProductViewModelTest {
 
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearDown() {
         Dispatchers.resetMain()
