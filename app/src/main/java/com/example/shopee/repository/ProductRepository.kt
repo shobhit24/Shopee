@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.shopee.data.database.AppDatabase
 import com.example.shopee.data.remote.APiInterface
 import com.example.shopee.model.Data
+import com.example.shopee.model.Product
 import com.example.shopee.model.ResponseDTO
 import com.example.shopee.util.NetworkUtils
 import javax.inject.Inject
@@ -34,11 +35,15 @@ class ProductRepository
         return getProductListFromDB()
     }
 
-    private fun getProductListFromDB(): ResponseDTO {
+    private suspend fun getProductListFromDB(): ResponseDTO {
 
         // Hit getAll query on DB
         val products = appDatabase.productDao().getAll()
         return ResponseDTO(Data(products), "", "")
+    }
+
+    suspend fun searchProducts(searchText: String?): List<Product> {
+        return appDatabase.productDao().searchProduct(searchText)
     }
 
 }

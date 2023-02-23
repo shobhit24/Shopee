@@ -17,7 +17,7 @@ class ProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 ) : ViewModel() {
     init {
-        callOnInit()
+        onInit()
     }
 
     private var productLiveData = MutableLiveData<ResponseDTO?>()
@@ -32,7 +32,7 @@ class ProductViewModel @Inject constructor(
     val products: LiveData<ResponseDTO?>
         get() = productLiveData
 
-    fun callOnInit() {
+    fun onInit() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = productRepository.getProducts()
             if (result != null) {
@@ -53,7 +53,7 @@ class ProductViewModel @Inject constructor(
     fun searchProducts(searchText: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             val searchResult =
-                productRepository.appDatabase.productDao().searchProduct(searchText)
+                productRepository.searchProducts(searchText)
             productLiveData.postValue(
                 ResponseDTO(
                     Data(items = searchResult),

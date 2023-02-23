@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController.setGraph(R.navigation.dashboard_navigation)
         binding.bottomNavigation.setupWithNavController(navController)
-
         // Search products query listener
         binding.header.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -68,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             currentDestination =
                 navController.currentDestination?.displayName?.substringAfterLast(":id/").toString()
             val index = itemsArray.indexOf(currentDestination)
-
             // Checking current selected bottom nav item is not at the first item
             if (index > 0) {
                 val finalDestination: String = itemsArray[index - 1]
