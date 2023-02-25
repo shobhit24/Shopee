@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Shopee</string>
-    <string name="explore">Explore</string>
-    <string name="filter">Filter</string>
-    <string name="search">Search</string>
-    <string name="same_day_shipping">Same Day Shipping</string>
-    <string name="mrp">MRP:\u0020</string>
-    <string name="price">₹100.0</string>
-    <string name="item">Item 1</string>
-    <string name="product_image">Product Image</string>
+    <string name="header_title">Explore</string>
+    <string name="header_subtitle">Filter</string>
+    <string name="search_hint">Search</string>
+    <string name="mrp_tag">MRP:\u0020</string>
+    <string name="sample_product_price">₹100.0</string>
+    <string name="sample_product_name">Item 1</string>
+    <string name="sample_product_shipping">Same Day Shipping</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

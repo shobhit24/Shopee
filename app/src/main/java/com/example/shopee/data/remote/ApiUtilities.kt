@@ -1,12 +1,11 @@
 package com.example.shopee.data.remote
 
+import com.example.shopee.util.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiUtilities {
-    private const val BASE_URL = "https://run.mocky.io/v3/"
-
-    fun getInstace(): Retrofit {
+    fun getInstance(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

@@ -18,7 +18,7 @@ class AppModule {
     @Provides
     @Singleton
     fun getRetrofitInstance(): APiInterface =
-        ApiUtilities.getInstace().create(APiInterface::class.java)
+        ApiUtilities.getInstance().create(APiInterface::class.java)
 
     @Provides
     @Singleton

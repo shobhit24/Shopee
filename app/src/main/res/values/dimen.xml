@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="design_navigation_icon_size" tools:override="true">40dp</dimen>
-    <dimen name="zero">0dp</dimen>
+    <!--  size i.e. for both height and width  -->
+    <dimen name="size_0dp">0dp</dimen>
+    <dimen name="size_1dp">1dp</dimen>
+    <dimen name="size_10dp">10dp</dimen>
+    <dimen name="size_32dp">32dp</dimen>
+    <dimen name="size_50dp">50dp</dimen>
+    <dimen name="size_110dp">110dp</dimen>
+    <dimen name="size_200dp">200dp</dimen>
+    <!--  padding  -->
+    <dimen name="padding_24dp">24dp</dimen>
+    <dimen name="padding_32dp">32dp</dimen>
+    <dimen name="padding_40dp">40dp</dimen>
+    <!--  margin  -->
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_28dp">28dp</dimen>
+    <dimen name="margin_32dp">32dp</dimen>
+    <!--  text size  -->
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_32sp">32sp</dimen>
+
+
 </resources>

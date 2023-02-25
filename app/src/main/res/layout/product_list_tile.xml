@@ -4,71 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="32dp"
-    android:layout_marginBottom="12dp">
+    android:layout_marginHorizontal="@dimen/margin_32dp"
+    android:layout_marginBottom="@dimen/margin_12dp">
 
     <ImageView
         android:id="@+id/productImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:contentDescription="@string/product_image"
+        android:layout_width="@dimen/size_50dp"
+        android:layout_height="@dimen/size_50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/productName"
+        style="@style/BlackText16BoldStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginBottom="@dimen/margin_8dp"
         app:layout_constraintStart_toEndOf="@+id/productImage"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/item" />
+        tools:text="@string/sample_product_name" />
 
     <TextView
         android:id="@+id/mrp"
+        style="@style/gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/mrp"
-        android:textColor="@color/shipping_text"
-        android:textFontWeight="700"
-        android:textSize="16sp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:text="@string/mrp_tag"
         app:layout_constraintEnd_toStartOf="@+id/productPrice"
         app:layout_constraintStart_toEndOf="@+id/productImage"
         app:layout_constraintTop_toBottomOf="@+id/productName"
-        tools:text="@string/mrp" />
+        tools:text="@string/mrp_tag" />
 
     <TextView
         android:id="@+id/productPrice"
+        style="@style/BlackText16Style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/mrp"
         app:layout_constraintTop_toBottomOf="@+id/productName"
-        tools:text="@string/price" />
+        tools:text="@string/sample_product_price" />
 
     <TextView
         android:id="@+id/productShipping"
+        style="@style/gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/shipping_text"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/productPrice"
         app:layout_constraintTop_toBottomOf="@+id/productName"
-        tools:text="@string/same_day_shipping" />
+        tools:text="@string/sample_product_shipping" />
 
     <View
         android:id="@+id/divider"
-        android:layout_width="@dimen/zero"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_1dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_8dp"
         android:background="@color/unselected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -6,13 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".view.fragments.ListViewFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/linearRecyclerView"
+    <include
+        android:id="@+id/loaderView"
+        layout="@layout/circular_loader" />
+
+    <include
+        android:id="@+id/errorView"
+        layout="@layout/error_layout"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingVertical="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/header_background">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/linearRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingVertical="@dimen/padding_40dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

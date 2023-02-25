@@ -42,56 +42,79 @@ android {
 
 dependencies {
     def room_version = "2.5.0"
+    def hilt_version = "2.44"
+    def glide_version = "4.14.2"
+    def retrofit_version = "2.9.0"
+    def livedata_version = "2.5.1"
+    def coroutine_version = "1.6.4"
+    def viewmodel_version = "2.5.1"
+    def navigation_version = "2.5.3"
+    def swipe_refresh_layout_version = "1.1.0"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+
+    // Navigation Component
+    implementation("androidx.navigation:navigation-fragment-ktx:$navigation_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$navigation_version")
+
+    // Refresh Layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:4.2.2"
+
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    // Gson
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version"
+
+    // required for unit tests
     testImplementation 'junit:junit:4.13.2'
+    testImplementation("com.squareup.okhttp3:okhttp:4.10.0")
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    // required for Android tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-    // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    // Gson
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-
-    testImplementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation 'org.mockito:mockito-inline:2.13.0'
 
     // required if you want to use Mockito for unit tests
+    implementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
     testImplementation 'org.mockito:mockito-core:4.4.0'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
 
     // required if you want to use Mockito for Android tests
-    androidTestImplementation 'org.mockito:mockito-android:3.2.0'
-
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    androidTestImplementation 'org.mockito:mockito-android:3.11.1'
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
 
     // Hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 }

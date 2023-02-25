@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="GridItemPriceStyle">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
-        <item name="android:textFontWeight">600</item>
+
+    <style name="BlackText16Style">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="BlackText16BoldStyle">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="gray">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="HeaderTitleStyle">
+        <item name="android:textSize">@dimen/text_size_18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HeaderSubTitleStyle">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:textColor">@color/selected</item>
+    </style>
+
+
 </resources>

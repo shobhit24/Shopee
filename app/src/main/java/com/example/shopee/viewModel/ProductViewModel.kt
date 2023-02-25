@@ -1,12 +1,12 @@
 package com.example.shopee.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.shopee.model.Data
 import com.example.shopee.model.ResponseDTO
 import com.example.shopee.repository.ProductRepository
+import com.example.shopee.util.ProductListState
+import com.example.shopee.util.enums.ErrorType
+import com.example.shopee.util.enums.SwipeDirection
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,50 +17,72 @@ class ProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 ) : ViewModel() {
     init {
-        onInit()
+        getScreenData()
     }
 
-    private var productLiveData = MutableLiveData<ResponseDTO?>()
+    private var productLiveData = MutableLiveData<ProductListState>()
 
     // LiveData for swipeLeft and swipeRight state to hold & update the value in when swipe detected
-    private val _swipeLeftObserver = MutableLiveData<Unit>()
-    private val _swipeRightObserver = MutableLiveData<Unit>()
+    private val _swipeObserver = MutableLiveData<SwipeDirection>()
+    private var refreshing: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
 
-    val swipeLeftObserver = _swipeLeftObserver
-    val swipeRightObserver = _swipeRightObserver
+    val isRefreshing = refreshing
+    val swipeObserver = _swipeObserver
 
-    val products: LiveData<ResponseDTO?>
+    val products: LiveData<ProductListState>
         get() = productLiveData
 
-    fun onInit() {
+
+    private fun getScreenData() {
         viewModelScope.launch(Dispatchers.IO) {
+            productLiveData.postValue(ProductListState.Loading)
             val result = productRepository.getProducts()
-            if (result != null) {
-                productLiveData.postValue(result)
-            }
+            productLiveData.postValue(handleProductsResponse(result))
         }
     }
 
-    // updating the swipe direction LiveData with current fragment
+    fun getSearchResults(searchText: String?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            productLiveData.postValue(ProductListState.Loading)
+            val searchResult = productRepository.searchProducts(searchText)
+            val productResponse = ResponseDTO(
+                data = Data(searchResult), error = "", status = ""
+            )
+            productLiveData.postValue(handleProductsResponse(productResponse))
+        }
+    }
+
+    private fun handleProductsResponse(productResponse: ResponseDTO): ProductListState {
+        return if (productResponse.error.toString().isNotEmpty()) {
+            ProductListState.Error(
+                error = ErrorType.NETWORK_ERROR
+            )
+        } else if (productResponse.data.items.isEmpty()) {
+            ProductListState.Error(
+                error = ErrorType.SEARCH_NOT_FOUND
+            )
+        } else {
+            ProductListState.Success(responseDTO = productResponse)
+        }
+    }
+
+    // updating the swipe direction LiveData
     fun onSwipeLeft() {
-        _swipeLeftObserver.postValue(Unit)
+        _swipeObserver.postValue(SwipeDirection.LEFT)
     }
 
     fun onSwipeRight() {
-        _swipeRightObserver.postValue(Unit)
+        _swipeObserver.postValue(SwipeDirection.RIGHT)
     }
 
-    fun searchProducts(searchText: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val searchResult =
-                productRepository.searchProducts(searchText)
-            productLiveData.postValue(
-                ResponseDTO(
-                    Data(items = searchResult),
-                    error = "",
-                    status = ""
-                )
-            )
+    fun refreshProductList() {
+        refreshing.postValue(true)
+        viewModelScope.launch() {
+            val result = productRepository.getProducts()
+            productLiveData.postValue(handleProductsResponse(result))
+            refreshing.postValue(false)
         }
     }
+
+
 }

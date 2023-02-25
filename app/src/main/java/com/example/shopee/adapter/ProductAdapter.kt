@@ -8,14 +8,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shopee.R
-
-import com.example.shopee.model.Product
 import com.example.shopee.databinding.ProductGridTileBinding
 import com.example.shopee.databinding.ProductListTileBinding
+import com.example.shopee.model.Product
+import com.example.shopee.util.enums.ViewType
 
-enum class ViewType() {
-    List, Grid,
-}
 
 class ProductAdapter(private val itemList: List<Product>, private val viewType: ViewType) :
     RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
@@ -79,10 +76,8 @@ class ProductAdapter(private val itemList: List<Product>, private val viewType: 
     }
 
     private fun loadImage(context: Context, imageUrl: String?, imageView: ImageView) {
-        Glide.with(context)
-            .load(if (imageUrl.isNullOrEmpty()) null else imageUrl)
-            .placeholder(R.drawable.placeholder_image)
-            .error(R.drawable.placeholder_image)
+        Glide.with(context).load(if (imageUrl.isNullOrEmpty()) null else imageUrl)
+            .placeholder(R.drawable.placeholder_image).error(R.drawable.placeholder_image)
             .into(imageView)
     }
 

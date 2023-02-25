@@ -4,46 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/page_header_background"
-    android:paddingHorizontal="32dp"
-    android:paddingTop="32dp"
-    android:paddingBottom="24dp">
+    android:paddingHorizontal="@dimen/padding_32dp"
+    android:paddingTop="@dimen/padding_32dp"
+    android:paddingBottom="@dimen/padding_24dp">
 
     <TextView
         android:id="@+id/title"
+        style="@style/HeaderTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/explore"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/search_bar"
+        android:layout_marginVertical="@dimen/margin_16dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:text="@string/header_title"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/filter"
+        style="@style/HeaderSubTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/filter"
-        android:textColor="@color/selected"
-        android:textFontWeight="500"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/search_bar"
+        android:layout_marginBottom="@dimen/margin_16dp"
+        android:text="@string/header_subtitle"
+        app:layout_constraintBottom_toTopOf="@id/searchBar"
         app:layout_constraintEnd_toEndOf="parent" />
 
 
     <SearchView
-        android:id="@id/search_bar"
+        android:id="@id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/search_bar"
         android:iconifiedByDefault="false"
         android:inputType="text"
         android:queryBackground="@null"
-        android:queryHint="@string/search"
+        android:queryHint="@string/search_hint"
         android:searchIcon="@null"
         android:textColor="@color/hint_text"
         app:iconifiedByDefault="false"
