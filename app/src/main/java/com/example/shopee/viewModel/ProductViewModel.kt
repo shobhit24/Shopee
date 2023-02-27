@@ -1,6 +1,9 @@
 package com.example.shopee.viewModel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.shopee.model.Data
 import com.example.shopee.model.ResponseDTO
 import com.example.shopee.repository.ProductRepository
@@ -12,6 +15,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ProductViewModel is the single source of contact for the UI related data i.e. [Product List's State] [ProductListState]
+ *
+ * It has following member functions to be interacted with based upon the UI Events
+ * - [getScreenData] - gets the data from the repository
+ * - [getSearchResults] - gets the searched results from local database
+ */
 @HiltViewModel
 class ProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
@@ -33,7 +43,10 @@ class ProductViewModel @Inject constructor(
         get() = productLiveData
 
 
-    private fun getScreenData() {
+    /**
+     * This method is responsible for fetching the product list from the repository
+     */
+    fun getScreenData() {
         viewModelScope.launch(Dispatchers.IO) {
             productLiveData.postValue(ProductListState.Loading)
             val result = productRepository.getProducts()
@@ -41,6 +54,11 @@ class ProductViewModel @Inject constructor(
         }
     }
 
+    /**
+     * This method is  responsible for searching the product based on [searchText].
+     *
+     * @param searchText is the textInput in the searchBar
+     */
     fun getSearchResults(searchText: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             productLiveData.postValue(ProductListState.Loading)
@@ -52,6 +70,9 @@ class ProductViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Handles the response from the repository and returns [ProductListState]
+     */
     private fun handleProductsResponse(productResponse: ResponseDTO): ProductListState {
         return if (productResponse.error.toString().isNotEmpty()) {
             ProductListState.Error(
@@ -66,15 +87,23 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    // updating the swipe direction LiveData
+    /**
+     * Updates the LiveData value for swipeLeft gesture i.e from Right to Left
+     */
     fun onSwipeLeft() {
         _swipeObserver.postValue(SwipeDirection.LEFT)
     }
 
+    /**
+     * Updates the LiveData value for swipeRight gesture i.e from Left to Right
+     */
     fun onSwipeRight() {
         _swipeObserver.postValue(SwipeDirection.RIGHT)
     }
 
+    /**
+     * Refreshes the product list on SwipeToRefresh gesture and updates the value for [productLiveData]
+     */
     fun refreshProductList() {
         refreshing.postValue(true)
         viewModelScope.launch() {

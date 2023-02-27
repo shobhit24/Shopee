@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
     def room_version = "2.5.0"
     def hilt_version = "2.44"
     def glide_version = "4.14.2"
@@ -50,6 +51,8 @@ dependencies {
     def viewmodel_version = "2.5.1"
     def navigation_version = "2.5.3"
     def swipe_refresh_layout_version = "1.1.0"
+    def androidx_test_core_version = "1.5.0"
+    def androidx_test_ext_kotlin_runner_version = "1.1.5"
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -60,6 +63,7 @@ dependencies {
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:$navigation_version")
     implementation("androidx.navigation:navigation-ui-ktx:$navigation_version")
+    androidTestImplementation("androidx.navigation:navigation-testing:$navigation_version")
 
     // Refresh Layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
@@ -96,6 +100,12 @@ dependencies {
     // required for Android tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation('androidx.test:runner:1.5.2')
+    androidTestImplementation('androidx.test:rules:1.5.0')
+    androidTestImplementation "androidx.test:core:$androidx_test_core_version"
+    androidTestImplementation "androidx.test:core-ktx:$androidx_test_core_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_test_ext_kotlin_runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.5.1"
 
     // required if you want to use Mockito for unit tests
     implementation 'com.squareup.okhttp3:mockwebserver:4.10.0'

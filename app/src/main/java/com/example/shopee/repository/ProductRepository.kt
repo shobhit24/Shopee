@@ -2,7 +2,7 @@ package com.example.shopee.repository
 
 import android.content.Context
 import com.example.shopee.data.database.AppDatabase
-import com.example.shopee.data.remote.APiInterface
+import com.example.shopee.data.remote.ApiInterface
 import com.example.shopee.model.Data
 import com.example.shopee.model.Product
 import com.example.shopee.model.ResponseDTO
@@ -10,10 +10,20 @@ import com.example.shopee.util.Constants.API_KEY
 import com.example.shopee.util.NetworkUtils
 import javax.inject.Inject
 
+/**
+ * ProductRepository is the single source of contact for the data either from
+ * - [Local Database] [AppDatabase] or
+ * - [Remote][ApiInterface]
+ *
+ * Also it checks for the network connection on device
+ *
+ * - if online -> return the data from [Local Database] [AppDatabase]
+ * - if offline -> return the data from [Remote][ApiInterface]
+ */
 class ProductRepository
 @Inject constructor(
-    private val aPiInterface: APiInterface,
-    val appDatabase: AppDatabase,
+    private val apiInterface: ApiInterface,
+    private val appDatabase: AppDatabase,
     private val applicationContext: Context
 ) {
     suspend fun getProducts(): ResponseDTO {
@@ -23,7 +33,7 @@ class ProductRepository
 
             // If Active Internet -> Make an API call
             try {
-                val result = aPiInterface.getProducts(API_KEY)
+                val result = apiInterface.getProducts(API_KEY)
 
                 if (result.isSuccessful && result.body() != null) {
                     // Save productList to local DB

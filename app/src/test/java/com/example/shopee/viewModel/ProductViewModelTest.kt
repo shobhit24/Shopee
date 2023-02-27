@@ -1,18 +1,26 @@
 package com.example.shopee.viewModel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.example.shopee.getOrAwaitValue
 import com.example.shopee.model.Data
 import com.example.shopee.model.Product
 import com.example.shopee.model.ResponseDTO
 import com.example.shopee.repository.ProductRepository
+import com.example.shopee.util.ProductListState
+import com.example.shopee.util.enums.ErrorType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.junit.*
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -20,6 +28,7 @@ import org.mockito.MockitoAnnotations
 @ExperimentalCoroutinesApi
 class ProductViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
+    private lateinit var productViewModel: ProductViewModel
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -27,48 +36,85 @@ class ProductViewModelTest {
     @Mock
     lateinit var productRepository: ProductRepository
 
+    @Mock
+    lateinit var product: Product
+
+    @Mock
+    private lateinit var liveDataObserverProductListState: Observer<ProductListState>
+
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
+        productViewModel = ProductViewModel(productRepository)
         Dispatchers.setMain(testDispatcher)
     }
 
     @Test
-    fun test_GetProducts() = runTest {
-        Mockito.`when`(productRepository.getProducts())
-            .thenReturn(ResponseDTO(data = Data(items = emptyList()), error = "", status = ""))
+    fun test_GetProducts_NetworkError() = runTest {
+        Mockito.`when`(productRepository.getProducts()).thenReturn(
+            ResponseDTO(
+                data = Data(items = emptyList()), error = "Network Error", status = ""
+            )
+        )
 
-        val sut = ProductViewModel(productRepository)
-        sut.onInit()
+        productViewModel.getScreenData()
+        productViewModel.products.observeForever(liveDataObserverProductListState)
         testDispatcher.scheduler.advanceUntilIdle()
-        val result = sut.products.getOrAwaitValue()
-
-        Assert.assertEquals(0, result?.data?.items?.size)
+        val response = productViewModel.products.getOrAwaitValue()
+        assertNotNull(response)
+        assertEquals(response, ProductListState.Error(error = ErrorType.NETWORK_ERROR))
 
     }
 
     @Test
-    fun test_SearchProducts() = runTest {
-        Mockito.`when`(productRepository.searchProducts("100"))
-            .thenReturn(
-                listOf(
-                    Product(
-                        id = 1,
-                        name = "Item 1",
-                        price = "100",
-                        image = "",
-                        extra = null
+    fun test_GetProducts() = runTest {
+        Mockito.`when`(productRepository.getProducts()).thenReturn(
+            ResponseDTO(
+                data = Data(
+                    items = listOf(
+                        product
                     )
-                )
+                ), error = "", status = ""
             )
+        )
 
         val sut = ProductViewModel(productRepository)
-        sut.searchProducts("100")
+        sut.getScreenData()
         testDispatcher.scheduler.advanceUntilIdle()
         val result = sut.products.getOrAwaitValue()
 
-        Assert.assertEquals(1, result?.data?.items?.size)
-        Assert.assertEquals("100", result?.data?.items?.get(0)?.price ?: "")
+        assertEquals(true, result is ProductListState.Success)
+    }
+
+    @Test
+    fun test_SearchProducts() = runTest {
+        Mockito.`when`(productRepository.searchProducts("Item 1")).thenReturn(
+            listOf(
+                product,
+            )
+        )
+
+        productViewModel.getSearchResults("Item 1")
+        productViewModel.products.observeForever(liveDataObserverProductListState)
+        testDispatcher.scheduler.advanceUntilIdle()
+        val response = productViewModel.products.getOrAwaitValue()
+
+        assertNotNull(response)
+        assertEquals(true, response is ProductListState.Success)
+    }
+
+    @Test
+    fun test_SearchProducts_SearchError() = runTest {
+        Mockito.`when`(productRepository.searchProducts("Item 1")).thenReturn(
+            emptyList()
+        )
+
+        productViewModel.getSearchResults("Item 1")
+        productViewModel.products.observeForever(liveDataObserverProductListState)
+        testDispatcher.scheduler.advanceUntilIdle()
+        val response = productViewModel.products.getOrAwaitValue()
+
+        assertEquals(response, ProductListState.Error(ErrorType.SEARCH_NOT_FOUND))
     }
 
     @After

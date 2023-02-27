@@ -18,6 +18,13 @@ import com.example.shopee.util.enums.ErrorType
 import com.example.shopee.util.enums.ViewType
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ *  Fragment for displaying the products in list view manner.
+ *
+ * This fragment contains RecyclerView to show ProductList depending upon the state of [ProductListState]
+ */
+
+
 @AndroidEntryPoint
 class ListViewFragment : Fragment() {
 

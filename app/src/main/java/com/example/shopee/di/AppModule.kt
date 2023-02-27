@@ -2,7 +2,7 @@ package com.example.shopee.di
 
 import android.content.Context
 import com.example.shopee.data.database.AppDatabase
-import com.example.shopee.data.remote.APiInterface
+import com.example.shopee.data.remote.ApiInterface
 import com.example.shopee.data.remote.ApiUtilities
 import dagger.Module
 import dagger.Provides
@@ -17,8 +17,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun getRetrofitInstance(): APiInterface =
-        ApiUtilities.getInstance().create(APiInterface::class.java)
+    fun getRetrofitInstance(): ApiInterface =
+        ApiUtilities.getInstance().create(ApiInterface::class.java)
 
     @Provides
     @Singleton

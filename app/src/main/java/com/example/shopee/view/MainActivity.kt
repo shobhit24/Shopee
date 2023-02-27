@@ -15,6 +15,14 @@ import com.example.shopee.util.enums.SwipeDirection
 import com.example.shopee.viewModel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Main entry point for the Shopee App.
+ * This activity contains the setup for the following features:
+ * - Setting up Navigation component
+ * - Handling Swipe Gestures
+ * - Handling Search Events
+ */
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -41,6 +49,12 @@ class MainActivity : AppCompatActivity() {
         handelSearchEvents()
     }
 
+    /**
+     *  Sets the navigation component.
+     *  - Sets the navigation graph
+     *  - Attach the navController to the bottomNavigation in order to navigate to specific destination when clicked on bottom navigation items
+     */
+
     private fun setNavigationComponent() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
@@ -52,7 +66,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleSwipeGestures() {
+    /**
+     *  Handles the [swipe gestures] [SwipeDirection]. And calculates the destination menuItem using the [SwipeDirection]
+     *  and pass the menuItem to [navigateTo].
+     */
+    fun handleSwipeGestures() {
         productViewModel.swipeObserver.observe(this) {
             val currentMenuItem =
                 binding.bottomNavigation.menu.findItem(binding.bottomNavigation.selectedItemId)
@@ -75,6 +93,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Observes the textInput in the searchBar and passes the textInput to the viewModel
+     */
+
     private fun handelSearchEvents() {
         binding.header.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -95,6 +117,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * Navigates to the desired menu item in the navigation graph
+     * @param destination menuItem to which we have to navigate
+     */
 
     private fun navigateTo(destination: MenuItem) {
         NavigationUI.onNavDestinationSelected(destination, navController)
