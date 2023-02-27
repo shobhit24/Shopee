@@ -11,7 +11,6 @@ import com.example.shopee.util.ProductListState
 import com.example.shopee.util.enums.ErrorType
 import com.example.shopee.util.enums.SwipeDirection
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,11 +25,13 @@ import javax.inject.Inject
 class ProductViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 ) : ViewModel() {
+
+    private var productLiveData: MutableLiveData<ProductListState> =
+        MutableLiveData<ProductListState>()
+
     init {
         getScreenData()
     }
-
-    private var productLiveData = MutableLiveData<ProductListState>()
 
     // LiveData for swipeLeft and swipeRight state to hold & update the value in when swipe detected
     private val _swipeObserver = MutableLiveData<SwipeDirection>()
@@ -47,10 +48,10 @@ class ProductViewModel @Inject constructor(
      * This method is responsible for fetching the product list from the repository
      */
     fun getScreenData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            productLiveData.postValue(ProductListState.Loading)
+        productLiveData.value = ProductListState.Loading
+        viewModelScope.launch {
             val result = productRepository.getProducts()
-            productLiveData.postValue(handleProductsResponse(result))
+            productLiveData.value = handleProductsResponse(result)
         }
     }
 
@@ -60,13 +61,13 @@ class ProductViewModel @Inject constructor(
      * @param searchText is the textInput in the searchBar
      */
     fun getSearchResults(searchText: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            productLiveData.postValue(ProductListState.Loading)
+        viewModelScope.launch {
+            productLiveData.value = ProductListState.Loading
             val searchResult = productRepository.searchProducts(searchText)
             val productResponse = ResponseDTO(
                 data = Data(searchResult), error = "", status = ""
             )
-            productLiveData.postValue(handleProductsResponse(productResponse))
+            productLiveData.value = handleProductsResponse(productResponse)
         }
     }
 
@@ -106,9 +107,9 @@ class ProductViewModel @Inject constructor(
      */
     fun refreshProductList() {
         refreshing.postValue(true)
-        viewModelScope.launch() {
+        viewModelScope.launch {
             val result = productRepository.getProducts()
-            productLiveData.postValue(handleProductsResponse(result))
+            productLiveData.value = handleProductsResponse(result)
             refreshing.postValue(false)
         }
     }

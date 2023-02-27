@@ -28,7 +28,6 @@ import org.mockito.MockitoAnnotations
 @ExperimentalCoroutinesApi
 class ProductViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
-    private lateinit var productViewModel: ProductViewModel
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -45,7 +44,6 @@ class ProductViewModelTest {
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-        productViewModel = ProductViewModel(productRepository)
         Dispatchers.setMain(testDispatcher)
     }
 
@@ -56,6 +54,7 @@ class ProductViewModelTest {
                 data = Data(items = emptyList()), error = "Network Error", status = ""
             )
         )
+        val productViewModel = ProductViewModel(productRepository)
 
         productViewModel.getScreenData()
         productViewModel.products.observeForever(liveDataObserverProductListState)
@@ -77,13 +76,13 @@ class ProductViewModelTest {
                 ), error = "", status = ""
             )
         )
-
-        val sut = ProductViewModel(productRepository)
-        sut.getScreenData()
+        val productViewModel = ProductViewModel(productRepository)
+        productViewModel.getScreenData()
+        productViewModel.products.observeForever(liveDataObserverProductListState)
         testDispatcher.scheduler.advanceUntilIdle()
-        val result = sut.products.getOrAwaitValue()
+        val response = productViewModel.products.getOrAwaitValue()
 
-        assertEquals(true, result is ProductListState.Success)
+        assertEquals(true, response is ProductListState.Success)
     }
 
     @Test
@@ -93,7 +92,7 @@ class ProductViewModelTest {
                 product,
             )
         )
-
+        val productViewModel = ProductViewModel(productRepository)
         productViewModel.getSearchResults("Item 1")
         productViewModel.products.observeForever(liveDataObserverProductListState)
         testDispatcher.scheduler.advanceUntilIdle()
@@ -108,7 +107,7 @@ class ProductViewModelTest {
         Mockito.`when`(productRepository.searchProducts("Item 1")).thenReturn(
             emptyList()
         )
-
+        val productViewModel = ProductViewModel(productRepository)
         productViewModel.getSearchResults("Item 1")
         productViewModel.products.observeForever(liveDataObserverProductListState)
         testDispatcher.scheduler.advanceUntilIdle()

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_menu">
 
     <item
         android:id="@+id/navigation_dashboard_list"
         android:icon="@drawable/baseline_circle_24"
-        android:title="" />
+        tools:ignore="AlwaysShowAction,MenuTitle" />
     <item
         android:id="@+id/navigation_dashboard_grid"
         android:icon="@drawable/baseline_circle_24"
-        android:title="" />
+        tools:ignore="AlwaysShowAction,MenuTitle" />
     <item
         android:icon="@drawable/baseline_circle_24"
-        android:title="" />
+        tools:ignore="AlwaysShowAction,MenuTitle" />
     <item
         android:icon="@drawable/baseline_circle_24"
-        android:title="" />
+        tools:ignore="AlwaysShowAction,MenuTitle" />
     <item
         android:icon="@drawable/baseline_circle_24"
-        android:title="" />
+        tools:ignore="AlwaysShowAction,MenuTitle" />
 </menu>

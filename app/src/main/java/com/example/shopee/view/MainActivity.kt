@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
      *  Handles the [swipe gestures] [SwipeDirection]. And calculates the destination menuItem using the [SwipeDirection]
      *  and pass the menuItem to [navigateTo].
      */
-    fun handleSwipeGestures() {
+    private fun handleSwipeGestures() {
         productViewModel.swipeObserver.observe(this) {
             val currentMenuItem =
                 binding.bottomNavigation.menu.findItem(binding.bottomNavigation.selectedItemId)
